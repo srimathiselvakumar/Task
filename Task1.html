@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application Form</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f9f9f9;
+            font-family: Arial, sans-serif;
+        }
+
+        .form-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin-bottom: 5px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .required::after {
+            
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="form-container">
+        <h1>Job Application Form</h1>
+        <form action="#" method="post">
+            
+            <label for="fullname">Full Name <span class="required"></span></label>
+            <input type="text" id="fullname" name="fullname" required>
+
+            <label for="email">Email <span class="required"></span></label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="phone">Phone Number <span class="required"></span></label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <label for="dob">Date of Birth <span class="required"></span></label>
+            <input type="date" id="dob" name="dob" required>
+
+            <label for="address">Address <span class="required"></span></label>
+            <textarea id="address" name="address" rows="3" required></textarea>
+
+            <label for="education">Highest Level of Education <span class="required"></span></label>
+            <select id="education" name="education" required>
+                <option value="" disabled selected>Select</option>
+                <option value="highschool">High School</option>
+                <option value="bachelor">Bachelor's Degree</option>
+                <option value="master">Master's Degree</option>
+                <option value="phd">PhD</option>
+            </select>
+
+            <label for="experience">Work Experience <span class="required"></span></label>
+            <textarea id="experience" name="experience" rows="4" required></textarea>
+
+            <label for="skills">Skills <span class="required"></span></label>
+            <textarea id="skills" name="skills" rows="3" required></textarea>
+
+            <label for="resume">Upload Your Resume <span class="required"></span></label>
+            <input type="file" id="resume" name="resume" accept=".pdf, .doc, .docx" required>
+
+            <button type="submit">Submit Application</button>
+        </form>
+    </div>
+
+</body>
+</html>
