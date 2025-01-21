@@ -1,42 +1,65 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* General styles for the app */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #e95ec8;
+  color: #333;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Navigation bar styles */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%; /* Make the navbar span the full width of the page */
+  background-color: #007bff;
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Ensure the navbar is on top of other content */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+nav ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: flex-start;
+  padding: 0;
+  margin: 0;
 }
 
-.card {
-  padding: 2em;
+nav ul li {
+  margin-right: 15px;
 }
 
-.read-the-docs {
-  color: #888;
+nav ul li a {
+  text-decoration: none;
+  color: rgb(213, 241, 190);
+  font-size: larger;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+nav ul li a:hover {
+  color: #d4d4d4;
+}
+
+/* Ensure content doesn't hide behind the fixed navbar */
+div {
+  margin: 80px 20px; /* Add margin to push content below the navbar */
+  padding: 20px;
+  background-color: #f19a9a;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Page title styles */
+h1 {
+  color: #101111;
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 2rem;
+  line-height: 1.5;
 }
