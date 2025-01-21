@@ -6,11 +6,11 @@ const promise = new Promise((resolve, reject) => {
 });
 
 promise.then(result => {
-    console.log(result);  // This is part of the microtask queue
+    console.log(result); 
 });
 
 console.log("End");
-console.log("----------------------")
+console.log("----------------------")cd 
 const numbers = [1, 2, 3, 4, 5, 6];
 
 
@@ -35,23 +35,23 @@ function fetchData() {
 
 async function main() {
     try {
-        const message = await fetchData(); // Wait for the promise to resolve
-        console.log(message); // Logs "fetched" after 2 seconds
+        const message = await fetchData(); 
+        console.log(message); 
     } catch (error) {
-        console.log(error); // Handles any errors if the promise is rejected
+        console.log(error);
     }
 }
 
 main();
 console.log("--------------------------------")
 async function fetchData() {
-    return "fetched"; // Resolves automatically as a promise
+    return "fetched"; 
 }
 
 fetchData()
-    .then((message) => console.log(message)) // Logs "fetched"
+    .then((message) => console.log(message))
     .catch((error) => console.log(error));
 console.log("-------------------------")
-// This will throw a SyntaxError
+
 const message = await fetchData();
 console.log(message);
