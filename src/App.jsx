@@ -1,73 +1,82 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import "./App.css";
 
-function App() {
-  const textBoxRef = useRef(null); // Ref for the text box
-  const timerIdRef = useRef(null); // Ref for the timer ID
-  const [countdown, setCountdown] = useState(10); // State for the countdown
-  const [isTimeUp, setIsTimeUp] = useState(false); // State to show "Time's Up"
+const App = () => {
+  const [city, setCity] = useState("");
+  const [weather, setWeather] = useState(null);
+  const [error, setError] = useState(null);
 
-  // Focus the text box
-  const focusTextBox = () => {
-    if (textBoxRef.current) {
-      textBoxRef.current.focus();
+  const handleCityChange = (e) => {
+    setCity(e.target.value);
+  };
+
+  const fetchWeather = async (e) => {
+    e.preventDefault();
+    if (!city) {
+      setError("Please enter a city.");
+      return;
+    }
+
+    const apiKey = "83e4eb5341179e75a243025400e54a82"; // Replace with your own API key from OpenWeatherMap
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+    try {
+      const response = await axios.get(url);
+      setWeather(response.data);
+      setError(null);
+    } catch (err) {
+      setError("City not found.");
+      setWeather(null);
     }
   };
 
-  // Start the timer
-  const startTimer = () => {
-    if (timerIdRef.current) return; // Prevent multiple timers
-
-    timerIdRef.current = setInterval(() => {
-      setCountdown((prev) => {
-        if (prev > 0) {
-          return prev - 1;
-        } else {
-          clearInterval(timerIdRef.current);
-          timerIdRef.current = null;
-          setIsTimeUp(true);
-          return 0;
-        }
-      });
-    }, 1000);
-  };
-
-  // Stop the timer
-  const stopTimer = () => {
-    if (timerIdRef.current) {
-      clearInterval(timerIdRef.current);
-      timerIdRef.current = null;
-    }
-  };
-
-  // Reset the timer
-  const resetTimer = () => {
-    stopTimer();
-    setCountdown(10);
-    setIsTimeUp(false);
+  const formatDateTime = (timestamp) => {
+    const date = new Date(timestamp * 1000); // Convert Unix timestamp to milliseconds
+    return date.toLocaleString("en-US", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+      hour12: true,
+    });
   };
 
   return (
-    <div className="container">
-      <h1>Magical Timer and Input Box</h1>
-      <div className="input-section">
+    <div className="weather-container">
+      <h1>Weather App</h1>
+      <form onSubmit={fetchWeather} className="weather-form">
         <input
           type="text"
-          placeholder="Type here..."
-          ref={textBoxRef}
-          onFocus={() => setIsTimeUp(false)}
+          value={city}
+          onChange={handleCityChange}
+          placeholder="Enter city name"
+          className="city-input"
         />
-        <button onClick={focusTextBox}>Focus Box</button>
-      </div>
-      <div className="timer-section">
-        <p id="timer-display">{countdown}</p>
-        <button onClick={startTimer}>Start Timer</button>
-        <button onClick={stopTimer}>Stop Timer</button>
-        <button onClick={resetTimer}>Reset Timer</button>
-        {isTimeUp && <p id="time-up-message">Time’s Up!</p>}
-      </div>
+        <button type="submit" className="search-button">
+          Search
+        </button>
+      </form>
+
+      {error && <div className="error">{error}</div>}
+
+      {weather && (
+        <div className="weather-info">
+          <h2>
+            {weather.name}, {weather.sys.country}
+          </h2>
+          <p className="temperature">{weather.main.temp}°C</p>
+          <p className="description">{weather.weather[0].description}</p>
+          <p>Humidity: {weather.main.humidity}%</p>
+          <p>Wind Speed: {weather.wind.speed} m/s</p>
+          <p>Date & Time: {formatDateTime(weather.dt)}</p>
+        </div>
+      )}
     </div>
   );
-}
+};
 
 export default App;

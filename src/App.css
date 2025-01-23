@@ -1,68 +1,68 @@
-/* App.css */
 body {
   font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
   margin: 0;
   padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-image:url('C:\Users\srima\OneDrive\Desktop\weather\program\src\assets\new.gif');
+  background-repeat:no-repeat;
+  background-size: cover;
+  color: #fff;
 }
 
-.container {
-  background: #fff;
-  padding: 20px 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.weather-app {
   text-align: center;
+  background: rgba(246, 199, 236, 0.603);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-h1 {
+.search-container {
+  display: flex;
+  justify-content: center;
   margin-bottom: 20px;
-  color: #333;
 }
 
-.input-section,
-.timer-section {
-  margin-bottom: 20px;
-}
-
-input {
+input[type="text"] {
   padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-right: 10px;
+  border: none;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  width: 200px;
 }
 
 button {
-  padding: 10px 15px;
-  font-size: 14px;
-  color: #fff;
-  background-color: #007BFF;
+  padding: 10px;
   border: none;
-  border-radius: 5px;
+  border-radius: 0 5px 5px 0;
+  background: #f86fd6;
+  color: white;
   cursor: pointer;
+  transition: background 0.3s;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background: #ef6fb7;
 }
 
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+.weather-result {
+  margin-top: 20px;
 }
 
-#timer-display {
-  font-size: 48px;
-  font-weight: bold;
-  margin: 20px 0;
-}
-
-#time-up-message {
+.weather-result h2 {
   font-size: 24px;
   font-weight: bold;
-  color: red;
+}
+
+.weather-result p {
+  margin: 5px 0;
+  font-size: 18px;
+}
+
+.error {
+  color: #eee6e6;
+  font-size: 16px;
 }
