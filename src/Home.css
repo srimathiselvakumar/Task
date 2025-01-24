@@ -1,0 +1,26 @@
+.home {
+    text-align: center;
+    padding: 50px;
+  }
+  
+  .home-logo {
+    width: 200px;
+    margin-bottom: 20px;
+  }
+  
+  .home-links {
+    font-size: 18px;
+    margin-top: 10px;
+  }
+  
+  .home-link {
+    color: #e50914;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 10px;
+  }
+  
+  .home-link:hover {
+    text-decoration: underline;
+  }
+  
