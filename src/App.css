@@ -1,29 +1,139 @@
-.app {
-  font-family: Arial, sans-serif;
-  text-align: center;
+/* General body styling with background image */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Arial", sans-serif;
+  background-image: url("C:/Users/srima/OneDrive/Desktop/Product/project/src/assets/tumblr_mba345pMuq1rsq9eyo1_500.gif");
+ 
+  
+  background-position: center;
+  min-height: 100vh;
+}
+
+/* General container */
+.container {
+  background-color: #eaedef9f; /* Light blue */
+  color: #0a0909;
   padding: 20px;
+  border-radius: 8px;
+  height: auto; /* Adjust based on content */
+  width: 500px;
+  margin: 500px; /* Center horizontally */
+  margin-top: 20px; /* Start near the top */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.video-container {
-  margin: 20px auto;
-  width: 640px;
-  height: 360px;
-  background-color: #000;
-  border: 2px solid #ccc;
-  border-radius: 10px;
+/* Header styling */
+.header {
+  font-size: xx-large;
+  text-align: center;
+  color: #161617; /* Dark blue */
 }
 
-.pause-button {
-  background-color: #ff4500;
-  color: #fff;
+/* Search bar container */
+.searchContainer {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* Input field styling */
+.input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #0a0a0a;
+  border-radius: 4px;
+  background-color: #0a0b0b;
+  color: white; /* Text color for contrast */
+}
+
+/* Button styling */
+.button {
+  padding: 8px 12px;
+  background-color: #1d1c1c; /* Orange */
+  color: white;
   border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
-  margin-top: 10px;
 }
 
-.pause-button:hover {
-  background-color: #ff6347;
+/* Button hover effect */
+.button:hover {
+  background-color: #eceeeb; /* Green */
+}
+
+/* Product count text styling */
+.count {
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #0c0c0c;
+}
+
+/* List container styling */
+.list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Individual list item styling */
+.listItem {
+  padding: 8px;
+  margin-bottom: 8px;
+  background-color: #a1d8f3; /* Pink */
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Cart container */
+.cartContainer {
+  margin-top: 20px;
+  background-color: #212324; /* Light blue background */
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Cart header */
+.cartHeader {
+  margin-bottom: 10px;
+  color: #f2b6c2;
+  text-align: center;
+}
+
+/* Add to Cart button */
+.addToCartButton {
+  margin-left: 10px;
+  background-color: #38a169;
+}
+
+.addToCartButton:hover {
+  background-color: #2f855a;
+}
+
+/* Buy Now button */
+.buyNowButton {
+  width: 100%;
+  margin-top: 10px;
+  background-color: #e53e3e;
+}
+
+.buyNowButton:hover {
+  background-color: #c53030;
+}
+
+/* Responsive design (for small screens) */
+@media (max-width: 600px) {
+  .container {
+    padding: 15px;
+    width: 90%;
+  }
+
+  .input {
+    font-size: 14px;
+  }
+
+  .button {
+    font-size: 14px;
+  }
 }
