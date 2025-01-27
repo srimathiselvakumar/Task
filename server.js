@@ -1,5 +1,5 @@
-const express = require('express'); // Corrected the import statement
-const server = express(); // Initialize Express
+const express = require('express'); 
+const server = express(); 
 const port = 5000;
 const items=[
      { id:1,name:'jeans'},
@@ -9,9 +9,9 @@ const items=[
 ];
 server.use(express.json());
 
-// Define a route for the root path
+
 server.get('/', (req, res) => {
-    res.end("Server is running"); // Changed to res.send for a proper HTTP response
+    res.end("Server is running"); 
 });
 server.get('/product',(req,res)=>{
     res.json(items);
@@ -23,6 +23,18 @@ server.post('/product',(req,res)=>
      res.status(201).json(newitem);
 
 });
+server.delete('/product/:id', (req, res) => {
+    const itemId = parseInt(req.params.id, 10); 
+    const itemIndex = items.findIndex((item) => item.id === itemId);
+    
+    if (itemIndex !== -1) {
+        const deletedItem = items.splice(itemIndex, 1); 
+        res.json({ message: 'Item deleted successfully', deletedItem }); 
+    } else {
+        res.status(404).send('Item not found in database'); 
+    }
+});
+
 server.put('/product/:id',(req,res)=>
 {
    const itemid=parseInt(req.params.id);
@@ -39,7 +51,7 @@ server.put('/product/:id',(req,res)=>
 }
 );
 
-// Start the server and listen on the specified port
+
 server.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
