@@ -1,57 +1,140 @@
-const express = require('express'); 
-const server = express(); 
+const express = require('express');
+const mongoose = require('mongoose');
+const server = express();
 const port = 5000;
-const items=[
-     { id:1,name:'jeans'},
-     {id:2,name:'tops'}
 
 
-];
+const databaseName = "Mernstack"; // Replace with your database name
+const collectionName = "mern"; // Replace with your collection name
+const dbURI = `mongodb+srv://Srimathi:sri123@cluster0.lj6hixo.mongodb.net/products?retryWrites=true&w=majority&appName=Cluster0
+`;
+
+let dbConnected = false; // Flag to check MongoDB connection status
+let Product; // Model placeholder
+
+// Attempt to connect to MongoDB
+mongoose.connect(dbURI)
+    .then(() => {
+        console.log(`Connected to MongoDB Atlas database: ${databaseName}`);
+        dbConnected = true;
+
+        // Define a Mongoose schema and model for products
+        const productSchema = new mongoose.Schema({
+            name: { type: String, required: true }, // Product name
+            price: { type: Number, required: true } // Product price
+        });
+
+        Product = mongoose.model('Product', productSchema, collectionName);
+    })
+    .catch(err => {
+        console.error("Error connecting to MongoDB Atlas:", err);
+    });
+
+// Middleware to parse JSON request body
 server.use(express.json());
 
-
+// Root route
 server.get('/', (req, res) => {
-    res.end("Server is running"); 
+    res.end(dbConnected
+        ? "Server is running and connected to MongoDB Atlas"
+        : "Server is running in standalone mode");
 });
-server.get('/product',(req,res)=>{
-    res.json(items);
-})
-server.post('/product',(req,res)=>
-{
-     newitem={id:items.length+1,name:req.body.name};
-     items.push(newitem);
-     res.status(201).json(newitem);
 
-});
-server.delete('/product/:id', (req, res) => {
-    const itemId = parseInt(req.params.id, 10); 
-    const itemIndex = items.findIndex((item) => item.id === itemId);
-    
-    if (itemIndex !== -1) {
-        const deletedItem = items.splice(itemIndex, 1); 
-        res.json({ message: 'Item deleted successfully', deletedItem }); 
+// GET route to fetch all products
+server.get('/product', async (req, res) => {
+    if (dbConnected) {
+        try {
+            const products = await Product.find();
+            res.json(products);
+        } catch (err) {
+            res.status(500).json({ message: "Error fetching products", error: err });
+        }
     } else {
-        res.status(404).send('Item not found in database'); 
+        res.status(503).json({ message: "Database is not connected" });
     }
 });
 
-server.put('/product/:id',(req,res)=>
-{
-   const itemid=parseInt(req.params.id);
-   const updateditems=items.findIndex((item) => item.id===itemid);
-   if(updateditems !==  -1)
-   {
-      items[updateditems].name=req.body.name;
-      res.json(items[updateditems]);
+// POST route to add a new product
+server.post('/product', async (req, res) => {
+    const { name, price } = req.body;
 
-   }
-   else{
-     res.status(404).json("items not found in data base")
-   }
-}
-);
+    // Validate input
+    if (!name || price === undefined) {
+        return res.status(400).json({ message: "Both name and price are required" });
+    }
 
+    if (dbConnected) {
+        try {
+            const newProduct = new Product({ name, price });
+            const savedProduct = await newProduct.save();
+            res.status(201).json({
+                message: "Item added successfully",
+                product: savedProduct
+            });
+        } catch (err) {
+            res.status(500).json({ message: "Error adding product", error: err });
+        }
+    } else {
+        res.status(503).json({ message: "Database is not connected" });
+    }
+});
 
+// PUT route to update an existing product by ID
+server.put('/product/:id', async (req, res) => {
+    const productId = req.params.id;
+    const { name, price } = req.body;
+
+    if (!name || price === undefined) {
+        return res.status(400).json({ message: "Both name and price are required for update" });
+    }
+
+    if (dbConnected) {
+        try {
+            const updatedProduct = await Product.findByIdAndUpdate(
+                productId,
+                { name, price },
+                { new: true, runValidators: true }
+            );
+            if (updatedProduct) {
+                res.json({
+                    message: "Product updated successfully",
+                    product: updatedProduct
+                });
+            } else {
+                res.status(404).json({ message: "Product not found" });
+            }
+        } catch (err) {
+            res.status(500).json({ message: "Error updating product", error: err });
+        }
+    } else {
+        res.status(503).json({ message: "Database is not connected" });
+    }
+});
+
+// DELETE route to delete a product by ID
+server.delete('/product/:id', async (req, res) => {
+    const productId = req.params.id;
+
+    if (dbConnected) {
+        try {
+            const deletedProduct = await Product.findByIdAndDelete(productId);
+            if (deletedProduct) {
+                res.json({
+                    message: "Product deleted successfully",
+                    product: deletedProduct
+                });
+            } else {
+                res.status(404).json({ message: "Product not found" });
+            }
+        } catch (err) {
+            res.status(500).json({ message: "Error deleting product", error: err });
+        }
+    } else {
+        res.status(503).json({ message: "Database is not connected" });
+    }
+});
+
+// Start the server
 server.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
