@@ -1,79 +1,32 @@
-/* General Styling */
 body {
   font-family: Arial, sans-serif;
-  background-color: #f0f4f8;
-  margin: 0;
-  padding: 0;
-  color: #333;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Container Styling */
-.container {
-  width: 100%;
-  max-width: 400px;
-  padding: 20px;
-  background-color: #060606;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
   text-align: center;
+  margin: 50px;
 }
 
-/* Title */
-h2 {
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: #444;
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  margin: 0 auto;
 }
 
-/* Input Fields */
 input {
-  width: 90%;
-  padding: 12px 15px;
+  padding: 10px;
   margin: 10px 0;
-  border: 1px solid #ccc;
+  border: 1px solid #ddd;
   border-radius: 5px;
-  font-size: 16px;
 }
 
-input:focus {
-  border-color: #007bff;
-  outline: none;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-
-/* Button */
 button {
-  width: 95%;
-  padding: 12px 15px;
+  padding: 10px;
   background-color: #007bff;
-  color: #fff;
+  color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
-  margin-top: 10px;
-  transition: background-color 0.3s ease;
 }
 
 button:hover {
   background-color: #0056b3;
-}
-
-/* Responsive Design */
-@media (max-width: 600px) {
-  .container {
-    padding: 15px;
-  }
-
-  input {
-    width: 100%;
-  }
-
-  button {
-    width: 100%;
-  }
 }
